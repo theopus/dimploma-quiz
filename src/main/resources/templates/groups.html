@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Studentss</title>
+</head>
+<body>
+<p>id   |Name</p>
+<th:block th:each="val: ${students}">
+    <hr>
+    <tr>
+        <td th:text="${val.id}"></td>
+        <td th:text="${val.name}"></td>
+    </tr>
+</th:block>
+
+<hr/>
+<form name="students" method="post" action="/students">
+    <div><label> Имя: <input type="text" name="name"/> </label></div>
+    <div><input type="submit" value="Створити"/></div>
+</form>
+
+</body>
+</html>
