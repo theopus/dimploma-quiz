@@ -1,7 +1,13 @@
 spring.thymeleaf.cache: false
-spring.devtools.restart.enabled: true
-spring.devtools.restart.additional-paths: file:src/main/resources
-spring.dev
-
-server:
-  port: 8888
+spring.devtools.restart.enabled: false
+#spring.devtools.restart.additional-paths: src/main/resources
+##spring.dev
+#
+#server:
+#  port: 8888
+#spring:
+#  devtools:
+#    livereload:
+#      enabled: true
+#    restart:
+#      exclude: application.yml

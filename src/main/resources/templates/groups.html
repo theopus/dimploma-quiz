@@ -2,21 +2,35 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Studentss</title>
+    <title>Групи</title>
+    <link rel="stylesheet" type="text/css" href="/main.css">
 </head>
 <body>
-<p>id   |Name</p>
-<th:block th:each="val: ${students}">
-    <hr>
+<div>
+    <a th:href="@{/hello}">Home</a>
+    <a th:href="@{/groups}">Групи</a>
+    <a th:href="@{/students}">Студенти</a>
+    <a th:href="@{/teachers}">Викладачи</a>
+    <a th:href="@{/quizzes}">Тести</a>
+</div>
+<h3>Групи</h3>
+
+<table>
     <tr>
-        <td th:text="${val.id}"></td>
-        <td th:text="${val.name}"></td>
+        <td>Номер</td>
+        <td>Назва</td>
     </tr>
-</th:block>
+    <th:block th:each="val: ${groups}">
+        <tr>
+            <td th:text="${val.id}"></td>
+            <td><a th:text="${val.name}" th:href="@{/groups/{id}(id=${val.id})}"></a></td>
+        </tr>
+    </th:block>
+</table>
 
 <hr/>
-<form name="students" method="post" action="/students">
-    <div><label> Имя: <input type="text" name="name"/> </label></div>
+<form name="groups" method="post" action="/groups">
+    <div><label> Назва: <input type="text" name="name"/> </label></div>
     <div><input type="submit" value="Створити"/></div>
 </form>
 

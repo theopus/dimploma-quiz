@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tecnb</title>
+    <title>Викладачи</title>
     <link rel="stylesheet" type="text/css" href="/main.css">
 </head>
 <body>
@@ -13,29 +13,33 @@
     <a th:href="@{/teachers}">Викладачи</a>
     <a th:href="@{/quizzes}">Тести</a>
 </div>
-<h3>Tecnb</h3>
+<h3>Викладачи</h3>
 <table>
     <tr>
         <td>Номер</td>
-        <td>Назва</td>
-
-        <td>Час виконання</td>
-        <td>Килькисть питань</td>
+        <td>Имя</td>
+        <td>Пароль</td>
     </tr>
-    <th:block th:each="val: ${quizzes}">
+    <th:block th:each="val: ${teachers}">
         <tr>
             <td th:text="${val.id}"></td>
-            <td th:text="${val.title}"></td>
-            <td th:text="${val.completionTime} + 'хв'"></td>
-            <td th:text="${val.list.size()}"></td>
+            <td th:text="${val.name}"></td>
+            <td th:text="${val.password}"></td>
+            <td>
+                <form th:action="@{teachers.html/delete/{id}(id=${val.id})}">
+                    <div><input type="submit" value="X"/></div>
+                </form>
+            </td>
         </tr>
     </th:block>
-
 </table>
 
 <hr/>
-<form name="quiz" method="get" action="/quizzes/creation">
+<form name="teachers" method="post" action="/teachers">
+    <div><label> Имя: <input type="text" name="name"/> </label></div>
+    <div><label> Пароль: <input type="text" name="password"/> </label></div>
     <div><input type="submit" value="Створити"/></div>
 </form>
+
 </body>
 </html>

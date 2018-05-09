@@ -1,4 +1,7 @@
 package com.ira.quizplatform.repository;
 
-public interface QuestionRepo {
+import com.ira.quizplatform.entity.Question;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface QuestionRepo extends JpaRepository<Question, Long> {
 }

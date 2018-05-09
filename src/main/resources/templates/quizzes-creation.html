@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/main.css">
+</head>
+<body>
+<h3>Test Creation</h3>
+
+
+<div name="creation">
+    <div>
+        <div><label> Назва: <input type="text" name="quiz-title"/> </label></div>
+        <div><label> Час на виконання(хв.): <input type="number" name="quiz-time"/> </label></div>
+    </div>
+    <div id="ready-questions">
+        <h3>Питання</h3>
+        <table id="qestions-table">
+
+
+        </table>
+    </div>
+    <div id="questions-pane">
+        <hr>
+        <div id="question-form">
+            <div><label> Назва: <input type="text" id="quest-title"/> </label></div>
+            <div><label> Опис: <input type="text" id="quest-desc"/> </label></div>
+            <div><label> Вага: <input type="number" id="quest-weight" value="1"> </label></div>
+        </div>
+        <button onclick="addQuestion()">Додати питання</button>
+        <hr>
+    </div>
+
+
+</div>
+
+<button onclick="extractData()">Створити</button>
+</body>
+</html>
+
+
+<script>
+    let questions = [];
+
+    class Quiz {
+        constructor(title, completionTime) {
+            this.title = title;
+            this.completionTime = completionTime;
+        }
+    }
+
+    class Question {
+        constructor(title, description, weight, all, correct) {
+            this.title = title;
+            this.description = description;
+            this.weitgh = weight;
+            this.all = all;
+            this.correct = correct;
+        }
+    }
+
+    class Answer {
+        constructor(value) {
+            this.value = value
+        }
+    }
+
+    function deleteQuestion(id) {
+        let arr = questions.splice(id, 1);
+        drawQuestions(questions);
+    }
+
+    function drawQuestions(questions) {
+        let table = document.getElementById("qestions-table");
+        table.innerHTML = '<tr>\n' +
+            '                 <td>Назва</td>\n' +
+            '                 <td>Опис</td>\n' +
+            '                 <td>Вага</td>\n' +
+            '                 <td>Питань</td>\n' +
+            '                 <td>Видалити</td>\n' +
+            '            </tr>';
+
+
+        for (let i = 0; i < questions.length; i++) {
+            let tr = table.insertRow();
+            let title = tr.insertCell();
+            let description = tr.insertCell();
+            let weitgh = tr.insertCell();
+            let all = tr.insertCell();
+            let del = tr.insertCell();
+
+
+            del.innerHTML =
+                '<button onclick="deleteQuestion(' + i + ')">X' +
+                '</button>';
+
+            title.innerText = questions[i].title;
+            description.innerText = questions[i].description;
+            weitgh.innerText = questions[i].weitgh;
+            all.innerText = 's';
+        }
+    }
+
+    drawQuestions(questions);
+
+    function extractData() {
+        let title = document.getElementsByName("quiz-title")[0].value;
+        let time = document.getElementsByName("quiz-time")[0].value;
+        const quiz = new Quiz(title, time);
+
+        console.log(JSON.stringify(quiz))
+    }
+
+    function addQuestion() {
+        let qf = document.getElementById("question-form");
+        console.log(qf)
+        let title = qf.querySelector("#quest-title").value;
+        let desc = qf.querySelector("#quest-desc").value;
+        let weight = qf.querySelector("#quest-weight").value;
+
+        question = new Question(title, desc, weight, null, null);
+        questions.push(question);
+        drawQuestions(questions)
+    }
+
+
+    function post() {
+
+        let quest = new Quiz('govno', 120);
+
+
+        let request = new XMLHttpRequest();
+        request.open("POST", "/quizzes/creation");
+        request.setRequestHeader("Content-type", "application/json");
+        request.send(JSON.stringify(quest));
+        // window.location.href = '/quizzes'
+    }
+</script>

@@ -1,4 +1,9 @@
 package com.ira.quizplatform.repository;
 
-public interface TeacherRepo {
+import com.ira.quizplatform.entity.Teacher;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface TeacherRepo extends JpaRepository<Teacher, Long> {
+
+    Teacher findByName(String name);
 }

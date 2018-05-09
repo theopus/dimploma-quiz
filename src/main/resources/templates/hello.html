@@ -9,9 +9,12 @@
 
 <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
 
-<div sec:authorize="hasAuthority('ROLE_TEACHER')">
-    Я учитель.
-    [[${#authentication.getAuthorities()}]]
+<div>
+    <a th:href="@{/hello}">Home</a>
+    <a th:href="@{/groups}">Групи</a>
+    <a th:href="@{/students}">Студенти</a>
+    <a th:href="@{/teachers}">Викладачи</a>
+    <a th:href="@{/quizzes}">Тести</a>
 </div>
 
 
