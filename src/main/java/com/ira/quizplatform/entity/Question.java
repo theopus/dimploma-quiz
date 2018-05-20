@@ -86,4 +86,17 @@ public class Question {
     public void setWeitgh(Float weitgh) {
         this.weitgh = weitgh;
     }
+
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", weitgh=" + weitgh +
+                ", all=" + all +
+                ", correct=" + correct +
+                '}';
+    }
 }

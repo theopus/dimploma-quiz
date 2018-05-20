@@ -13,7 +13,7 @@
     <a th:href="@{/teachers}">Викладачи</a>
     <a th:href="@{/quizzes}">Тести</a>
 </div>
-<h3>Tecnb</h3>
+<h3>Tести</h3>
 <table>
     <tr>
         <td>Номер</td>
@@ -37,5 +37,31 @@
 <form name="quiz" method="get" action="/quizzes/creation">
     <div><input type="submit" value="Створити"/></div>
 </form>
+<hr/>
+<h4>Регістрація на тести</h4>
+<form action="/quizzes/permissions", method="post">
+    <div>
+        <select name="group">
+            <option value="">Выбереть группу</option>
+            <option th:each="gp : ${groups}"
+                    th:value="${gp.id}"
+                    th:text="${gp.id}+' : '+${gp.name}"></option>
+        </select>
+    </div>
+    <div>
+        <select name="quiz">
+            <option value="">Выберете тест</option>
+            <option th:each="qz : ${quizzes}"
+                    th:value="${qz.id}"
+                    th:text="${qz.id}+' : '+${qz.title}"></option>
+        </select>
+    </div>
+    <div>
+        <input type="submit" value="Надати доступ"/>
+    </div>
+</form>
 </body>
+<script>
+
+</script>
 </html>

@@ -9,22 +9,26 @@
 
 <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
 
-<div>
-    <a th:href="@{/hello}">Home</a>
-    <a th:href="@{/groups}">Групи</a>
-    <a th:href="@{/students}">Студенти</a>
-    <a th:href="@{/teachers}">Викладачи</a>
-    <a th:href="@{/quizzes}">Тести</a>
+
+<div sec:authorize="hasAuthority('ROLE_TEACHER')">
+    <div>
+        <a th:href="@{/hello}">Home</a>
+        <a th:href="@{/groups}">Групи</a>
+        <a th:href="@{/students}">Студенти</a>
+        <a th:href="@{/teachers}">Викладачи</a>
+        <a th:href="@{/quizzes}">Тести</a>
+    </div>
 </div>
+
 
 
 <div sec:authorize="hasAuthority('ROLE_STUDENT')">
-    Я лох.
-    [[${#authentication.getAuthorities()}]]
+    <a th:href="@{/tests}">Тести</a>
 </div>
 
+
 <form th:action="@{/logout}" method="post">
-    <input type="submit" value="Sign Out"/>
+    <input type="submit" value="Вийти"/>
 </form>
 </body>
 </html>

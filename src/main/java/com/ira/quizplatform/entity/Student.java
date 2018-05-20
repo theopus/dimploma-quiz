@@ -1,5 +1,6 @@
 package com.ira.quizplatform.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ public class Student {
 
     private String name;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="group_id", nullable=false)
     private Group group;
