@@ -4,6 +4,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
+import static javax.persistence.CascadeType.*;
+
 /**
  * Created by Oleksandr_Tkachov on 20.05.2018.
  */
@@ -15,10 +17,10 @@ public class Result {
     @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade={MERGE, REMOVE, REFRESH, DETACH})
     private Quiz quiz;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade={MERGE, REMOVE, REFRESH, DETACH})
     private Student student;
 
     private Integer balance;
