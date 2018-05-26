@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Тести</title>
+    <link rel="stylesheet" type="text/css" href="/main.css">
+</head>
+<h3>Доступни тести</h3>
+<body>
+<div>
+    <a th:href="@{/hello}">Home</a>
+    <a th:href="@{/test}">Тести</a>
+</div>
+<table>
+    <tr>
+        <td>Номер</td>
+        <td>Назва</td>
+        <td>Питань</td>
+        <td>Результат</td>
+    </tr>
+    <th:block th:each="val: ${avalible}">
+        <tr>
+            <td th:text="${val.quiz.id}"></td>
+            <td th:text="${val.quiz.title}"></td>
+            <td th:text="${val.quiz.list.size()}"></td>
+            <div th:switch="${val.getPassed()}">
+                <div th:case="${false}">
+                    <td><a  th:href="@{/test/{id}(id=${val.id})}">Пройти</a></td>
+                </div>
+                <div th:case="${true}">
+                    <td th:text="${val.balance}"></td>
+                </div>
+            </div>
+
+        </tr>
+    </th:block>
+</table>
+</body>
+<script>
+    window.onload = function() {
+        if(!window.location.hash) {
+            window.location = window.location + '#loaded';
+            window.location.reload();
+        }
+    }
+</script>
+</html>

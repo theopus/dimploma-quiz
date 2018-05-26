@@ -17,13 +17,15 @@
         <a th:href="@{/students}">Студенти</a>
         <a th:href="@{/teachers}">Викладачи</a>
         <a th:href="@{/quizzes}">Тести</a>
+        <a th:href="@{/results}">Реузльтати</a>
     </div>
 </div>
 
 
 
 <div sec:authorize="hasAuthority('ROLE_STUDENT')">
-    <a th:href="@{/tests}">Тести</a>
+    <a th:href="@{/hello}">Home</a>
+    <a th:href="@{/test}">Тести</a>
 </div>
 
 

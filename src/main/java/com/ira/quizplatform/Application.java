@@ -40,28 +40,69 @@ public class Application {
 
         Quiz quiz = objectMapper.readValue("{\n" +
                 "    \"id\": null,\n" +
-                "    \"title\":\"Physics\",\n" +
+                "    \"title\":\"213\",\n" +
                 "    \"completionTime\": 3,\n" +
                 "    \"list\": [\n" +
                 "        {\n" +
                 "            \"id\": null,\n" +
-                "            \"title\":\"213\",\n" +
+                "            \"title\":\"First\",\n" +
                 "            \"description\":\"3123\",\n" +
                 "            \"weitgh\": 1.0,\n" +
                 "            \"all\": [\n" +
                 "                {\n" +
-                "                    \"value\":\"213\"\n" +
+                "                    \"value\":\"1\"\n" +
                 "                },\n" +
                 "                {\n" +
-                "                    \"value\":\"213\"\n" +
+                "                    \"value\":\"2\"\n" +
                 "                }\n" +
                 "            ],\n" +
                 "            \"correct\": [\n" +
                 "                {\n" +
-                "                    \"value\":\"213\"\n" +
+                "                    \"value\":\"1\"\n" +
                 "                },\n" +
                 "                {\n" +
-                "                    \"value\":\"213\"\n" +
+                "                    \"value\":\"2\"\n" +
+                "                }\n" +
+                "            ]\n" +
+                "        },\n" +
+                "        {\n" +
+                "            \"id\": null,\n" +
+                "            \"title\":\"Second\",\n" +
+                "            \"description\":\"3123\",\n" +
+                "            \"weitgh\": 1.0,\n" +
+                "            \"all\": [\n" +
+                "                {\n" +
+                "                    \"value\":\"1\"\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"value\":\"2\"\n" +
+                "                }\n" +
+                "            ],\n" +
+                "            \"correct\": [\n" +
+                "                {\n" +
+                "                    \"value\":\"1\"\n" +
+                "                }\n" +
+                "            ]\n" +
+                "        },\n" +
+                "        {\n" +
+                "            \"id\": null,\n" +
+                "            \"title\":\"Third\",\n" +
+                "            \"description\":\"3123\",\n" +
+                "            \"weitgh\": 1.0,\n" +
+                "            \"all\": [\n" +
+                "                {\n" +
+                "                    \"value\":\"1\"\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"value\":\"2\"\n" +
+                "                }\n" +
+                "            ],\n" +
+                "            \"correct\": [\n" +
+                "                {\n" +
+                "                    \"value\":\"1\"\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"value\":\"2\"\n" +
                 "                }\n" +
                 "            ]\n" +
                 "        }\n" +

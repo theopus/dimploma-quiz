@@ -19,8 +19,9 @@ public interface ResultRepo extends JpaRepository<Result, Long> {
 
     List<Result> findByStudent_Group(Group group);
 
+    List<Result> findByStudent_GroupAndQuiz(Group group, Quiz quiz);
+
     List<Result> findByStudentAndQuiz(Student student, Quiz quiz);
 
-    @Query("select distinct r.quiz from result r where r.student.group.id = :groupId")
-    List<Quiz> uniqueQuizzes(@Param("groupId")Long groupId);
+    List<Result> findByQuizId(Long quizId);
 }

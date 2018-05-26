@@ -12,7 +12,57 @@
     <a th:href="@{/students}">Студенти</a>
     <a th:href="@{/teachers}">Викладачи</a>
     <a th:href="@{/quizzes}">Тести</a>
+    <a th:href="@{/results}">Реузльтати</a>
+
 </div>
+
+
 <h3>Групи</h3>
+
+<table>
+    <tr>
+        <td>Номер</td>
+        <td>Назва</td>
+    </tr>
+    <th:block th:each="val: ${groups}">
+        <tr>
+            <td th:text="${val.id}"></td>
+            <td><a th:text="${val.name}" th:href="@{/results/studentByGroup/{id}(id=${val.id})}"></a></td>
+        </tr>
+    </th:block>
+</table>
+
+
+<div th:switch="${resultsByStudent != null}">
+    <div th:case="${true}">
+        <h3>Результати</h3>
+        <div>
+            <table>
+                <tr>
+                    <td>Student</td>
+                    <th:block th:each="res: ${resultsByStudent.values().stream().findFirst().get()}">
+                        <td th:text="${res.quiz.title}"></td>
+                    </th:block>
+                    <td>Total</td>
+                </tr>
+                <th:block th:each="val: ${resultsByStudent}">
+                    <tr>
+                        <td th:text="${val.key.name}"></td>
+                        <th:block th:each="res: ${val.value}">
+                            <div th:switch="${res.getPassed()}">
+                                <td th:case="${true}" th:text="${res.balance}"></td>
+                                <td th:case="${false}" th:text="X"></td>
+                            </div>
+                        </th:block>
+                        <td th:text="${T(com.ira.quizplatform.controller.Utils).avg(val.value.stream())}"></td>
+                    </tr>
+                </th:block>
+            </table>
+        </div>
+    </div>
+    <div th:case="${false}">
+        <h3>Виберети групу</h3>
+    </div>
+</div>
 </body>
 </html>

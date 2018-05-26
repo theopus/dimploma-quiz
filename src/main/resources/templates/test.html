@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Test</title>
+</head>
+<body>
+
+
+<div id="quiz-title"></div>
+<div id="current-test-id"></div>
+<div id="current-test-title"></div>
+<div id="current-test-desc"></div>
+<p>Видповиди:</p>
+<div id="current-test-answers"></div>
+
+<p>Час:</p>
+<div id="timer"></div>
+<br>
+<div id="all-tests">
+
+</div>
+<div>
+    <button onclick="post(qAnswers)">Закинчити</button>
+</div>
+</body>
+<script th:inline="javascript">
+    class Quiz {
+        constructor(title, completionTime, questions) {
+            this.title = title;
+            this.completionTime = completionTime;
+            this.list = questions
+        }
+    }
+
+    /*<![CDATA[*/
+    const quizRaw = /*[[${quiz}]]*/ 'default';
+    const quiz = new Quiz(quizRaw.title, quizRaw.completionTime, quizRaw.list);
+    const qAnswers = [];
+    console.log(quizRaw);
+    console.log(quiz);
+
+    /*]]>*/
+
+
+    function selectQuestionById(id) {
+        let testId = document.getElementById("current-test-id");
+        let title = document.getElementById("current-test-title");
+        let desc = document.getElementById("current-test-desc");
+        testId.innerHTML = (id + 1);
+        title.innerHTML = "Опис: " + quiz.list[id].title;
+        desc.innerHTML = "Питання: " + quiz.list[id].description;
+
+        drawAnswersByQuestionId(quiz.list[id].all, id)
+    }
+
+    function drawAnswersByQuestionId(answers, questId) {
+        let title = document.getElementById("current-test-answers");
+        title.innerHTML = '';
+        for (let i = 0; i < answers.length; i++) {
+            let node = document.createElement('div');
+            let number = document.createTextNode(i + 1 + ": ");
+            let text = document.createTextNode(answers[i].value);
+            const check = document.createElement('input');
+            const questionNumber = questId;
+            const answerNumber = i;
+
+            check.type = "checkbox";
+            check.name = "name";
+            check.value = "value";
+            check.id = "checkbox-" + i;
+            if (qAnswers[questionNumber].includes(answerNumber)) {
+                check.checked = true;
+            }
+            check.onchange = () => changedAnswer(check, questionNumber, answerNumber);
+
+            node.appendChild(number);
+            node.appendChild(check);
+            node.appendChild(text);
+
+            title.appendChild(node);
+        }
+    }
+
+    function changedAnswer(checkBox, questionNumber, answerNumber) {
+        if (checkBox.checked) {
+            if (!qAnswers[questionNumber].includes(answerNumber)) {
+                qAnswers[questionNumber].push(answerNumber)
+            }
+        } else {
+            removeA(qAnswers[questionNumber], answerNumber)
+        }
+        console.log(qAnswers)
+    }
+
+    function drawAllQuestions(questions) {
+
+        let quizTitle = document.getElementById("quiz-title");
+        let numbers = document.getElementById("all-tests");
+
+        quizTitle.innerHTML = quiz.title;
+
+        let btnPrev = document.createElement("BUTTON");
+        let btnNext = document.createElement("BUTTON");
+        let textPrev = document.createTextNode("<<");
+        let textNext = document.createTextNode(">>");
+
+        btnPrev.appendChild(textPrev);
+        btnNext.appendChild(textNext);
+        btnNext.onclick = () => {
+            let selectedId = document.getElementById("current-test-id");
+            let number = selectedId.innerHTML;
+            number = number - 1 + 1;
+            if (number > qAnswers.length - 1) {
+                number = 0
+            }
+            selectQuestionById(number)
+        };
+        btnPrev.onclick = () => {
+            let selectedId = document.getElementById("current-test-id");
+            let number = selectedId.innerHTML;
+            number = number - 1 - 1;
+            if (number < 0) {
+                number = qAnswers.length - 1
+            }
+            selectQuestionById(number)
+        };
+
+        numbers.appendChild(btnPrev);
+        for (let i = 0; i < questions.length; i++) {
+            let btn = document.createElement("BUTTON");
+            let text = document.createTextNode(i + 1);
+            btn.onclick = () => selectQuestionById(i);
+            btn.appendChild(text);
+            numbers.appendChild(btn);
+            questions[i].correct = [];
+            qAnswers.push([]);
+        }
+        numbers.appendChild(btnNext);
+        selectQuestionById(0)
+    }
+
+    drawAllQuestions(quiz.list);
+    drawTimer();
+
+
+    function post(qAnswers) {
+        let request = new XMLHttpRequest();
+        request.open("POST", "/test/" + quizRaw.id);
+        request.setRequestHeader("Content-type", "application/json");
+        request.send(JSON.stringify(qAnswers));
+        window.location.replace("/test");
+        // window.location.reload("/test");
+    }
+
+    function drawTimer() {
+        document.getElementById('timer').innerHTML =
+            quiz.completionTime + ":" + 00;
+        startTimer();
+
+        function startTimer() {
+            let presentTime = document.getElementById('timer').innerHTML;
+            let timeArray = presentTime.split(/[:]+/);
+            let m = timeArray[0];
+            let s = checkSecond((timeArray[1] - 1));
+            if (s == 59) {
+                m = m - 1
+            }
+            if (m < 0) {
+                post(qAnswers)
+            }
+
+            document.getElementById('timer').innerHTML =
+                m + ":" + s;
+            setTimeout(startTimer, 1000);
+        }
+
+        function checkSecond(sec) {
+            if (sec < 10 && sec >= 0) {
+                sec = "0" + sec
+            }
+            if (sec < 0) {
+                sec = "59"
+            }
+            return sec;
+        }
+    }
+
+    function removeA(arr) {
+        var what, a = arguments, L = a.length, ax;
+        while (L > 1 && arr.length) {
+            what = a[--L];
+            while ((ax = arr.indexOf(what)) !== -1) {
+                arr.splice(ax, 1);
+            }
+        }
+        return arr;
+    }
+</script>
+</html>

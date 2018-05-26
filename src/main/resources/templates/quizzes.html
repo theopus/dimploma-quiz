@@ -12,6 +12,7 @@
     <a th:href="@{/students}">Студенти</a>
     <a th:href="@{/teachers}">Викладачи</a>
     <a th:href="@{/quizzes}">Тести</a>
+    <a th:href="@{/results}">Реузльтати</a>
 </div>
 <h3>Tести</h3>
 <table>
@@ -25,7 +26,7 @@
     <th:block th:each="val: ${quizzes}">
         <tr>
             <td th:text="${val.id}"></td>
-            <td th:text="${val.title}"></td>
+            <td><a th:text="${val.title}" th:href="@{/results/quiz/{id}(id=${val.id})}"></a></td>
             <td th:text="${val.completionTime} + 'хв'"></td>
             <td th:text="${val.list.size()}"></td>
         </tr>
@@ -62,6 +63,11 @@
 </form>
 </body>
 <script>
-
+    window.onload = function() {
+        if(!window.location.hash) {
+            window.location = window.location + '#loaded';
+            window.location.reload();
+        }
+    }
 </script>
 </html>
