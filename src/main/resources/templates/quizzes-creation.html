@@ -99,7 +99,7 @@
             '                 <td>Назва</td>\n' +
             '                 <td>Опис</td>\n' +
             '                 <td>Вага</td>\n' +
-            '                 <td>Варіантів</td>\n' +
+            '                 <td>Видповиди</td>\n' +
             '                 <td>Видалити</td>\n' +
             '            </tr>';
 
@@ -163,6 +163,7 @@
         let time = document.getElementsByName("quiz-time")[0].value;
         if (questions.length < 1) {
             alert("Кількість тестів менше 1.")
+            return
         }
         const quiz = new Quiz(title, time, questions);
 

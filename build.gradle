@@ -39,5 +39,6 @@ dependencies {
     compile group: 'com.google.guava', name: 'guava', version: '18.0'
     testCompile("org.springframework.boot:spring-boot-starter-test")
     compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4', version: '3.0.2.RELEASE'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.0.8'
 }
 

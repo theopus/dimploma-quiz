@@ -19,7 +19,7 @@ import java.io.IOException;
 @SpringBootApplication
 public class Application {
 
-//    @Autowired
+    //    @Autowired
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -40,7 +40,7 @@ public class Application {
 
         Quiz quiz = objectMapper.readValue("{\n" +
                 "    \"id\": null,\n" +
-                "    \"title\":\"213\",\n" +
+                "    \"title\":\"Kек\",\n" +
                 "    \"completionTime\": 3,\n" +
                 "    \"list\": [\n" +
                 "        {\n" +
@@ -141,24 +141,34 @@ public class Application {
                 "}", Quiz.class);
 
         Group group = groupRepo.save(new Group("Иуст-41"));
-        Quiz quizSaved = quizRepo.save(quiz);
-        Quiz quizSaved2 = quizRepo.save(quiz2);
-        Student student = repo.save(new Student("ira", "ira", group));
-        teacherRepo.save(new Teacher("gorda", "gorda"));
+//        Quiz quizSaved = quizRepo.save(quiz);
+//        Quiz quizSaved2 = quizRepo.save(quiz2);
+
+        Student student1 = new Student("ira", "ira", group);
+        Student byName = repo.findByName(student1.getName());
+        if (byName != null) {
+            Student student = repo.save(student1);
+        }
+        Teacher teacher = new Teacher("gorda", "gorda");
+        Teacher byName1 = teacherRepo.findByName(teacher.getName());
+        if (byName1 != null) {
+            teacherRepo.save(teacher);
+        }
+
 
         Result result = new Result();
         result.setBalance(0);
         result.setPassed(false);
-        result.setStudent(student);
-        result.setQuiz(quizSaved);
-        resultRepo.save(result);
+//        result.setStudent(student);
+//        result.setQuiz(quizSaved);
+//        resultRepo.save(result);
 
         Result result1 = new Result();
         result1.setBalance(0);
         result1.setPassed(false);
-        result1.setStudent(student);
-        result1.setQuiz(quizSaved2);
-        resultRepo.save(result1);
+//        result1.setStudent(student);
+//        result1.setQuiz(quizSaved2);
+//        resultRepo.save(result1);
 
 
     }
