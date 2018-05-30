@@ -71,7 +71,9 @@ public class ResultController {
         Group one = groupRepo.getOne(groupId);
         Quiz one1 = quizRepo.getOne(quizId);
         ModelAndView modelAndView = resultsByQuiz(quizId);
-        modelAndView.addObject("studentsResults", resultRepo.findByStudent_GroupAndQuiz(one, one1));
+        List<Result> byStudent_groupAndQuiz = resultRepo.findByStudent_GroupAndQuiz(one, one1);
+        System.out.println(byStudent_groupAndQuiz);
+        modelAndView.addObject("studentsResults", byStudent_groupAndQuiz);
         modelAndView.addObject("group", one);
         return modelAndView;
 
@@ -82,9 +84,11 @@ public class ResultController {
         Group one = groupRepo.getOne(id);
         List<Result> byStudent_group = resultRepo.findByStudent_Group(one);
         Map<Student, List<Result>> collect = byStudent_group.stream().collect(Collectors.groupingBy(Result::getStudent));
-        ModelAndView modelAndView = new ModelAndView("results");
+        ModelAndView modelAndView = groups();
+        if (collect.isEmpty()) {
+            return modelAndView;
+        }
         modelAndView.addObject("resultsByStudent", collect);
-        modelAndView.addAllObjects(groups().getModel());
         return modelAndView;
     }
 

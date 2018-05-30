@@ -6,26 +6,28 @@
     <link rel="stylesheet" type="text/css" href="/main.css">
 </head>
 <body>
-<div>
-    <a th:href="@{/hello}">Home</a>
-    <a th:href="@{/groups}">Групи</a>
-    <a th:href="@{/students}">Студенти</a>
-    <a th:href="@{/teachers}">Викладачи</a>
-    <a th:href="@{/quizzes}">Тести</a>
-    <a th:href="@{/results}">Реузльтати</a>
+<div class="nav-bar">
+    <div>
+        <a th:href="@{/hello}">Головна</a>
+        <a th:href="@{/groups}">Групи</a>
+        <a th:href="@{/students}">Студенти</a>
+        <a th:href="@{/teachers}">Викладачі</a>
+        <a th:href="@{/quizzes}">Тести</a>
+        <a th:href="@{/results}">Результати</a>
+    </div>
 </div>
-<h3>Tести</h3>
-<table>
+<h2>Tести</h2>
+<table class="ma-table">
     <tr>
-        <td>Номер</td>
-        <td>Назва</td>
+        <td class="table-header">Номер</td>
+        <td class="table-header">Назва</td>
 
-        <td>Час виконання</td>
-        <td>Килькисть питань</td>
+        <td class="table-header">Час виконання</td>
+        <td class="table-header">Кількість питань</td>
     </tr>
     <th:block th:each="val: ${quizzes}">
         <tr>
-            <td th:text="${val.id}"></td>
+            <td style="text-align: center" th:text="${val.id}"></td>
             <td><a th:text="${val.title}" th:href="@{/results/quiz/{id}(id=${val.id})}"></a></td>
             <td th:text="${val.completionTime} + 'хв'"></td>
             <td th:text="${val.list.size()}"></td>
@@ -35,30 +37,30 @@
 </table>
 
 <hr/>
-<form name="quiz" method="get" action="/quizzes/creation">
-    <div><input type="submit" value="Створити"/></div>
+<form style="width: 478px" class="nav-bar" name="quiz" method="get" action="/quizzes/creation">
+    <div><input class="button" type="submit" value="Створити"/></div>
 </form>
 <hr/>
-<h4>Регістрація на тести</h4>
-<form action="/quizzes/permissions", method="post">
+<h2>Реєстрація на тести</h2>
+<form style="width: 478px" class="nav-bar" action="/quizzes/permissions", method="post">
     <div>
-        <select name="group">
-            <option value="">Выбереть группу</option>
+        <select class="ma-select" name="group">
+            <option value="">Виберіть групу</option>
             <option th:each="gp : ${groups}"
                     th:value="${gp.id}"
                     th:text="${gp.id}+' : '+${gp.name}"></option>
         </select>
     </div>
     <div>
-        <select name="quiz">
-            <option value="">Выберете тест</option>
+        <select class="ma-select" name="quiz">
+            <option value="">Виберіть тест</option>
             <option th:each="qz : ${quizzes}"
                     th:value="${qz.id}"
                     th:text="${qz.id}+' : '+${qz.title}"></option>
         </select>
     </div>
     <div>
-        <input type="submit" value="Надати доступ"/>
+        <input class="button" type="submit" value="Надати доступ"/>
     </div>
 </form>
 </body>

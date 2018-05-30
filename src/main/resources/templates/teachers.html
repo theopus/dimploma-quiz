@@ -6,29 +6,32 @@
     <link rel="stylesheet" type="text/css" href="/main.css">
 </head>
 <body>
-<div>
-    <a th:href="@{/hello}">Home</a>
-    <a th:href="@{/groups}">Групи</a>
-    <a th:href="@{/students}">Студенти</a>
-    <a th:href="@{/teachers}">Викладачи</a>
-    <a th:href="@{/quizzes}">Тести</a>
-    <a th:href="@{/results}">Реузльтати</a>
+<div class="nav-bar">
+    <div>
+        <a th:href="@{/hello}">Головна</a>
+        <a th:href="@{/groups}">Групи</a>
+        <a th:href="@{/students}">Студенти</a>
+        <a th:href="@{/teachers}">Викладачі</a>
+        <a th:href="@{/quizzes}">Тести</a>
+        <a th:href="@{/results}">Результати</a>
+    </div>
 </div>
-<h3>Викладачи</h3>
-<table>
+<h2>Викладачі</h2>
+<table class="ma-table">
     <tr>
-        <td>Номер</td>
-        <td>Имя</td>
-        <td>Пароль</td>
+        <td class="table-header">Номер</td>
+        <td class="table-header">Ім'я</td>
+        <td class="table-header">Пароль</td>
+        <td class="table-header">Видалити</td>
     </tr>
     <th:block th:each="val: ${teachers}">
         <tr>
-            <td th:text="${val.id}"></td>
+            <td style="text-align: center" th:text="${val.id}"></td>
             <td th:text="${val.name}"></td>
             <td th:text="${val.password}"></td>
             <td>
                 <form th:action="@{teachers.html/delete/{id}(id=${val.id})}">
-                    <div><input type="submit" value="X"/></div>
+                    <div style="text-align: center"><input class="button-del" type="submit" value="X"/></div>
                 </form>
             </td>
         </tr>
@@ -36,10 +39,11 @@
 </table>
 
 <hr/>
-<form name="teachers" method="post" action="/teachers">
-    <div><label> Имя: <input type="text" name="name"/> </label></div>
+<form style="width: 478px" class="nav-bar" name="teachers" method="post" action="/teachers">
+    <div><label> Ім'я: <input type="text" name="name"/> </label></div>
     <div><label> Пароль: <input type="text" name="password"/> </label></div>
-    <div><input type="submit" value="Створити"/></div>
+    <br/>
+    <div><input class="button" type="submit" value="Створити"/></div>
 </form>
 
 </body>

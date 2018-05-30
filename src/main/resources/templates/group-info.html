@@ -7,31 +7,34 @@
 </head>
 <body>
 
-<div>
-    <a th:href="@{/hello}">Home</a>
-    <a th:href="@{/groups}">Групи</a>
-    <a th:href="@{/students}">Студенти</a>
-    <a th:href="@{/teachers.html}">Викладачи</a>
-    <a th:href="@{/quizzes}">Тести</a>
-    <a th:href="@{/results}">Реузльтати</a>
+<div class="nav-bar">
+    <div>
+        <a th:href="@{/hello}">Головна</a>
+        <a th:href="@{/groups}">Групи</a>
+        <a th:href="@{/students}">Студенти</a>
+        <a th:href="@{/teachers}">Викладачі</a>
+        <a th:href="@{/quizzes}">Тести</a>
+        <a th:href="@{/results}">Результати</a>
+    </div>
 </div>
-<h3 th:text="${group.name}"></h3>
-<table>
+<h2 th:text="${group.name}"></h2>
+<table class="ma-table">
     <tr>
-        <td>Номер</td>
-        <td>Имя</td>
-        <td>Пароль</td>
-        <td>Группа</td>
+        <td class="table-header">Номер</td>
+        <td class="table-header">Ім'я</td>
+        <td class="table-header">Пароль</td>
+        <td class="table-header">Група</td>
+        <td class="table-header">Видалити</td>
     </tr>
     <th:block th:each="val: ${group.students}">
         <tr>
-            <td th:text="${val.id}"></td>
+            <td style="text-align: center" th:text="${val.id}"></td>
             <td th:text="${val.name}"></td>
             <td th:text="${val.password}"></td>
             <td> <a th:text="${val.group.name}" th:href="@{/groups/{id}(id=${val.group.id})}"></a></td>
             <td>
                 <form th:action="@{students/delete/{id}(id=${val.id})}">
-                    <div><input type="submit" value="X"/></div>
+                    <div style="text-align: center"><input class="button-del" type="submit" value="X"/></div>
                 </form>
             </td>
         </tr>

@@ -6,17 +6,27 @@
     <link rel="stylesheet" type="text/css" href="/main.css">
 </head>
 <body>
+<div class="nav-bar">
+    <div>
+        <a th:href="@{/hello}">Головна</a>
+        <a th:href="@{/groups}">Групи</a>
+        <a th:href="@{/students}">Студенти</a>
+        <a th:href="@{/teachers}">Викладачі</a>
+        <a th:href="@{/quizzes}">Тести</a>
+        <a th:href="@{/results}">Результати</a>
+    </div>
+</div>
 <h3 th:text="${quiz.title}"></h3>
 <h3>Групи</h3>
 
-<table>
-    <tr>
+<table class="ma-table">
+    <tr class="table-header">
         <td>Номер</td>
         <td>Назва</td>
     </tr>
     <th:block th:each="val: ${groups}">
         <tr>
-            <td th:text="${val.id}"></td>
+            <td style="text-align: center" th:text="${val.id}"></td>
             <td><a th:text="${val.name}"
                    th:href="@{/results/quiz/{quizId}/group/{groupId}(groupId=${val.id}, quizId=${quiz.id})}">
 
@@ -28,22 +38,22 @@
 <div th:switch="${studentsResults != null}">
     <div th:case="${true}">
         <h2 th:text="${group.name}"></h2>
-        <table>
-            <tr>
-                <td>Student</td>
-                <td>Total</td>
-                <td>Passed</td>
+        <table class="ma-table">
+            <tr class="table-header">
+                <td>Студент</td>
+                <td>Оцінка</td>
+                <td>Пройшов</td>
             </tr>
             <th:block th:each="val: ${studentsResults}">
                 <tr>
                     <td th:text="${val.student.name}"></td>
                     <td th:text="${val.balance}"></td>
                     <div th:switch="${val.getPassed()}">
-                        <div th:case="${true}">
-                            <td>yes</td>
+                        <div style="text-align: center" th:case="${true}">
+                            <td>Так</td>
                         </div>
-                        <div th:case="${false}">
-                            <td>No</td>
+                        <div style="text-align: center" th:case="${false}">
+                            <td>Ні</td>
                         </div>
                     </div>
                 </tr>

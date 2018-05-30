@@ -5,18 +5,19 @@
     <title>Тести</title>
     <link rel="stylesheet" type="text/css" href="/main.css">
 </head>
-<h3>Доступни тести</h3>
-<body>
-<div>
-    <a th:href="@{/hello}">Home</a>
+<div class="nav-bar">
+    <a th:href="@{/hello}">Головна</a>
     <a th:href="@{/test}">Тести</a>
 </div>
-<table>
+<h2>Доступні тести</h2>
+<body>
+
+<table class="ma-table">
     <tr>
-        <td>Номер</td>
-        <td>Назва</td>
-        <td>Питань</td>
-        <td>Результат</td>
+        <td class="table-header">Номер</td>
+        <td class="table-header">Назва</td>
+        <td class="table-header">Питань</td>
+        <td class="table-header">Результат</td>
     </tr>
     <th:block th:each="val: ${avalible}">
         <tr>

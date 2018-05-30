@@ -2,19 +2,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <title>Spring Security Example </title>
+    <title>Портал</title>
+    <link rel="stylesheet" type="text/css" href="/main.css">
 </head>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <body>
-<div th:if="${param.error}">
+<div class="login-form" th:if="${param.error}">
     Invalid username and password.
 </div>
-<div th:if="${param.logout}">
+<div class="login-form" th:if="${param.logout}">
     You have been logged out.
 </div>
-<form th:action="@{/login}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
+<h2 class="login-form">Портал тестування</h2>
+<form class="login-form" th:action="@{/login}" method="post">
+    <div class="login-form" ><label> Логін : <input type="text" name="username"/> </label></div>
+    <br>
+    <div class="login-form" ><label> Пароль: <input type="password" name="password"/> </label></div>
+    <br>
+    <div class="login-form" ><input class="button" type="submit" value="Увійти"/></div>
 </form>
 </body>
 </html>

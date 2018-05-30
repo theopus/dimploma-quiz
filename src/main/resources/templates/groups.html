@@ -6,33 +6,36 @@
     <link rel="stylesheet" type="text/css" href="/main.css">
 </head>
 <body>
-<div>
-    <a th:href="@{/hello}">Home</a>
-    <a th:href="@{/groups}">Групи</a>
-    <a th:href="@{/students}">Студенти</a>
-    <a th:href="@{/teachers}">Викладачи</a>
-    <a th:href="@{/quizzes}">Тести</a>
-    <a th:href="@{/results}">Реузльтати</a>
+<div class="nav-bar">
+    <div>
+        <a th:href="@{/hello}">Головна</a>
+        <a th:href="@{/groups}">Групи</a>
+        <a th:href="@{/students}">Студенти</a>
+        <a th:href="@{/teachers}">Викладачі</a>
+        <a th:href="@{/quizzes}">Тести</a>
+        <a th:href="@{/results}">Результати</a>
+    </div>
 </div>
-<h3>Групи</h3>
+<h2>Групи</h2>
 
-<table>
+<table class="ma-table">
     <tr>
-        <td>Номер</td>
-        <td>Назва</td>
+        <td class="table-header"><b>Номер</b></td>
+        <td class="table-header"><b>Назва</b></td>
     </tr>
     <th:block th:each="val: ${groups}">
         <tr>
-            <td th:text="${val.id}"></td>
+            <td style="text-align: center" th:text="${val.id}"></td>
             <td><a th:text="${val.name}" th:href="@{/groups/{id}(id=${val.id})}"></a></td>
         </tr>
     </th:block>
 </table>
 
 <hr/>
-<form name="groups" method="post" action="/groups">
-    <div><label> Назва: <input type="text" name="name"/> </label></div>
-    <div><input type="submit" value="Створити"/></div>
+<form style="width: 478px" class="nav-bar" name="groups" method="post" action="/groups">
+    <div><label style="font-size: 20px"> Назва: <input height="100px" type="text" name="name"/> </label></div>
+    <br>
+    <div><input class="button" type="submit" value="Створити"/></div>
 </form>
 
 </body>

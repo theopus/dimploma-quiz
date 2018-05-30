@@ -2,26 +2,41 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <title>Test</title>
+    <title>Тестування</title>
+    <link rel="stylesheet" type="text/css" href="/main.css">
 </head>
 <body>
 
+<h3>Тест</h3>
+<div style="font-weight: bold" id="quiz-title"></div>
+<p/>
+<div style="font-size: 18px">Час:
+    <div id="timer"></div>
+</div>
+<p></p>
 
-<div id="quiz-title"></div>
-<div id="current-test-id"></div>
-<div id="current-test-title"></div>
-<div id="current-test-desc"></div>
-<p>Видповиди:</p>
-<div id="current-test-answers"></div>
+<h2>Питання</h2>
+<div class="nav-bar" style="width: 478px">
+    <b><div style="float: left" id="current-test-id"></div></b>
+    <div style="float: left">.</div>
+    <div style="float: left" id="current-test-title"></div>
+    <div>.</div>
+    <div id="current-test-desc"></div>
+</div>
 
-<p>Час:</p>
-<div id="timer"></div>
-<br>
+
+<h3>Відповіді:</h3>
+
+<div class="nav-bar" style="width: 478px">
+    <div id="current-test-answers"></div>
+    <br>
+
+</div>
 <div id="all-tests">
 
 </div>
 <div>
-    <button onclick="post(qAnswers)">Закинчити</button>
+    <button class="button" onclick="post(qAnswers)">Завершити</button>
 </div>
 </body>
 <script th:inline="javascript">
@@ -48,8 +63,8 @@
         let title = document.getElementById("current-test-title");
         let desc = document.getElementById("current-test-desc");
         testId.innerHTML = (id + 1);
-        title.innerHTML = "Опис: " + quiz.list[id].title;
-        desc.innerHTML = "Питання: " + quiz.list[id].description;
+        title.innerHTML = "" + quiz.list[id].title;
+        desc.innerHTML = "  " + quiz.list[id].description + ".";
 
         drawAnswersByQuestionId(quiz.list[id].all, id)
     }
@@ -107,6 +122,10 @@
 
         btnPrev.appendChild(textPrev);
         btnNext.appendChild(textNext);
+
+        btnPrev.classList = ["button-sm"];
+        btnNext.classList = ["button-sm"];
+
         btnNext.onclick = () => {
             let selectedId = document.getElementById("current-test-id");
             let number = selectedId.innerHTML;
@@ -129,6 +148,7 @@
         numbers.appendChild(btnPrev);
         for (let i = 0; i < questions.length; i++) {
             let btn = document.createElement("BUTTON");
+            btn.classList = ["button-sm"];
             let text = document.createTextNode(i + 1);
             btn.onclick = () => selectQuestionById(i);
             btn.appendChild(text);

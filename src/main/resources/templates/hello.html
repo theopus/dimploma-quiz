@@ -2,35 +2,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <title>Hello World!</title>
+    <title>Головна</title>
+    <link rel="stylesheet" type="text/css" href="/main.css">
 </head>
 <body>
-
-
-<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-
-
-<div sec:authorize="hasAuthority('ROLE_TEACHER')">
+<div class="nav-bar" sec:authorize="hasAuthority('ROLE_TEACHER')">
     <div>
-        <a th:href="@{/hello}">Home</a>
+        <a th:href="@{/hello}">Головна</a>
         <a th:href="@{/groups}">Групи</a>
         <a th:href="@{/students}">Студенти</a>
-        <a th:href="@{/teachers}">Викладачи</a>
+        <a th:href="@{/teachers}">Викладачі</a>
         <a th:href="@{/quizzes}">Тести</a>
-        <a th:href="@{/results}">Реузльтати</a>
+        <a th:href="@{/results}">Результати</a>
     </div>
 </div>
-
-
-
-<div sec:authorize="hasAuthority('ROLE_STUDENT')">
-    <a th:href="@{/hello}">Home</a>
+<div class="nav-bar"sec:authorize="hasAuthority('ROLE_STUDENT')">
+    <a th:href="@{/hello}">Головна</a>
     <a th:href="@{/test}">Тести</a>
 </div>
-
-
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Вийти"/>
+<br/>
+<form style="text-align: center" th:action="@{/logout}" method="post">
+    <input class="button" type="submit" value="Вийти"/>
 </form>
+
+
+
+
+
+
+
 </body>
 </html>

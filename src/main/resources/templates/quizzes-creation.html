@@ -6,49 +6,52 @@
     <link rel="stylesheet" type="text/css" href="/main.css">
 </head>
 <body>
-<h3>Test Creation</h3>
+<h1>Створення тесту</h1>
 
 
 <div name="creation">
-    <div>
+
+    <div class="nav-bar" style="width: 478px">
         <div><label> Назва: <input type="text" name="quiz-title"/> </label></div>
         <div><label> Час на виконання(хв.): <input type="number" name="quiz-time"/> </label></div>
     </div>
+    <hr/>
     <div id="ready-questions">
-        <h3>Питання</h3>
-        <table id="qestions-table">
+        <h2>Питання</h2>
+        <table class="ma-table" id="qestions-table">
 
 
         </table>
     </div>
-    <div id="questions-pane">
-        <hr>
+    <div style="width: 478px" class="nav-bar" id="questions-pane">
         <div id="question-form">
             <div><label> Назва: <input type="text" id="quest-title"/> </label></div>
             <div><label> Опис: <input type="text" id="quest-desc"/> </label></div>
             <div><label> Вага: <input type="number" id="quest-weight" value="1"> </label></div>
         </div>
-        <button onclick="addQuestion()">Додати питання</button>
-        <hr>
-        <div id="answers-pane">
-            <h3>Відповіді</h3>
-            <table id="answers-table">
+        <button class="button" onclick="addQuestion()">Додати питання</button>
+    </div>
+    <hr>
+
+    <div>
+        <h2>Відповіді</h2>
+        <table class="ma-table" id="answers-table">
 
 
-            </table>
-            <hr/>
-            <div id="answers-form">
-                <div><label> Текст: <input type="text" id="answer-body"/> </label></div>
-                <div><label> Правильный: <input type="checkbox" id="answer-right"> </label></div>
-                <button onclick="addAnswer()">Додати варіант</button>
-            </div>
+        </table>
+    </div>
+    <div style="width: 478px" class="nav-bar" id="answers-pane">
+        <div id="answers-form">
+            <div><label> Текст: <input type="text" id="answer-body"/> </label></div>
+            <div><label> Правильний: <input type="checkbox" id="answer-right"> </label></div>
+            <button class="button" onclick="addAnswer()">Додати варіант</button>
         </div>
     </div>
 
     <hr/>
 </div>
 
-<button onclick="extractData()">Створити</button>
+<button class="button" style="padding: 20px 40px;" onclick="extractData()"><b>Створити</b></button>
 </body>
 </html>
 
@@ -96,11 +99,11 @@
     function drawQuestions(questions) {
         let table = document.getElementById("qestions-table");
         table.innerHTML = '<tr>\n' +
-            '                 <td>Назва</td>\n' +
-            '                 <td>Опис</td>\n' +
-            '                 <td>Вага</td>\n' +
-            '                 <td>Видповиди</td>\n' +
-            '                 <td>Видалити</td>\n' +
+            '                 <td class="table-header">Назва</td>\n' +
+            '                 <td class="table-header">Опис</td>\n' +
+            '                 <td class="table-header">Вага</td>\n' +
+            '                 <td class="table-header">Відповіді</td>\n' +
+            '                 <td class="table-header">Видалити</td>\n' +
             '            </tr>';
 
 
@@ -114,13 +117,15 @@
 
 
             del.innerHTML =
-                '<button onclick="deleteQuestion(' + i + ')">X' +
+                '<button class="button-del" onclick="deleteQuestion(' + i + ')">X' +
                 '</button>';
 
             title.innerText = questions[i].title;
             description.innerText = questions[i].description;
             weitgh.innerText = questions[i].weitgh;
             all.innerText = questions[i].all.length;
+
+            del.style = "text-align: center";
         }
     }
 
@@ -133,9 +138,9 @@
         console.log(answers)
         let table = document.getElementById("answers-table");
         table.innerHTML = '<tr>\n' +
-            '                 <td>Текст</td>\n' +
-            '                 <td>Правильный</td>\n' +
-            '                 <td>Видалити</td>\n' +
+            '                 <td class="table-header">Текст</td>\n' +
+            '                 <td class="table-header">Правильний</td>\n' +
+            '                 <td class="table-header">Видалити</td>\n' +
             '            </tr>';
 
 
@@ -147,11 +152,13 @@
 
 
             del.innerHTML =
-                '<button onclick="deleteAnswer(' + i + ')">X' +
+                '<button class="button-del" onclick="deleteAnswer(' + i + ')">X' +
                 '</button>';
+            del.style = "text-align: center";
 
             text.innerText = answers[i].value;
-            right.innerText = answers[i].isRight;
+            right.innerText = answers[i].isRight ? "+" : "-";
+            right.style = "text-align: center"
         }
     }
 
@@ -196,10 +203,10 @@
         let all = [];
         let right = [];
         answers.forEach(ans => {
-           all.push(new FinalAnswer(ans.value));
-           if (ans.isRight) {
-               right.push(new FinalAnswer(ans.value))
-           }
+            all.push(new FinalAnswer(ans.value));
+            if (ans.isRight) {
+                right.push(new FinalAnswer(ans.value))
+            }
         });
         let question = new Question(title, desc, weight, all, right);
         questions.push(question);
@@ -223,6 +230,6 @@
         request.open("POST", "/quizzes/creation");
         request.setRequestHeader("Content-type", "application/json");
         request.send(JSON.stringify(quiz));
-         window.location.href = '/quizzes'
+        window.location.href = '/quizzes'
     }
 </script>
